@@ -112,9 +112,9 @@ async function runConversation(phone: string, message: string) {
             messages: messages,
         }); // get a new response from the model where it can see the function response
         const response = secondResponse.choices;
-        sendWhatsAppMessage(parseInt(phone), response[0].message.content);
+        await sendWhatsAppMessage(parseInt(phone), response[0].message.content);
     } else {
-        sendWhatsAppMessage(parseInt(phone), responseMessage.content);
+        await sendWhatsAppMessage(parseInt(phone), responseMessage.content);
     }
 
 
@@ -162,6 +162,8 @@ function getDate() {
 
 
 async function sendWhatsAppMessage(recipient: number, message: any) {
+    console.log(recipient)
+    console.log(message)
     const url = `https://graph.facebook.com/v17.0/111947191855209/messages`;
     const body = {
         messaging_product: "whatsapp",
