@@ -73,7 +73,7 @@ async function runConversation(phone:string, message:string) {
     ];
 
     const response:any = await openai.chat.completions.create({
-        model: "gpt-4-32k",
+        model: "gpt-4",
         messages: messages,
         tools: tools,
         tool_choice: "auto",
@@ -108,12 +108,14 @@ async function runConversation(phone:string, message:string) {
         }
         console.log(messages);
         const secondResponse = await openai.chat.completions.create({
-            model: "gpt-3.5-turbo-16k",
+            model: "gpt-4-32k",
             messages: messages,
         }); // get a new response from the model where it can see the function response
         const response = secondResponse.choices;
         sendWhatsAppMessage(parseInt(phone),response[0].message.content);
-    }
+    } 
+    sendWhatsAppMessage(parseInt(phone),responseMessage);
+
 
 }
 
@@ -196,14 +198,11 @@ export default defineEventHandler(async (event) => {
     const body:any = await readBody(event);
     console.log(body);
     try {
-        console.log('entro')
         if(body.entry.length>0) {
             const phone = body.entry[0].changes[0].value.messages.from;
             const msgType = body.entry[0].changes[0].value.messages[0].type;
             let message;
             if(msgType == 'text') {
-                console.log('entro2')
-                
                 message = body.entry[0].changes[0].value.messages[0].text.body;
                 console.log(message);
                 runConversation(phone, message)
