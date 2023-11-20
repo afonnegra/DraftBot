@@ -1,4 +1,4 @@
 export default defineEventHandler(async (event) => {
-    const name = getRouterParam(event, 'challenge')
+    const name = getRouterParam(event, 'hub.challenge')
     return name;
 });
