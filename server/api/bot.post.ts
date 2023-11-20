@@ -196,12 +196,16 @@ export default defineEventHandler(async (event) => {
     const body:any = await readBody(event);
     console.log(body);
     try {
+        console.log('entro')
         if(body.entry.length>0) {
             const phone = body.entry[0].changes[0].value.messages.from;
             const msgType = body.entry[0].changes[0].value.messages[0].type;
             let message;
             if(msgType == 'text') {
+                console.log('entro2')
+                
                 message = body.entry[0].changes[0].value.messages[0].text.body;
+                console.log(message);
                 runConversation(phone, message)
             } else {
                 sendWhatsAppMessage(parseInt(phone),'Lo Lamento solo recibo texto');
