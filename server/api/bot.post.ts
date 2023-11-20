@@ -21,8 +21,8 @@ async function runConversation(phone: string, message: string) {
         { role: 'system', content: 'No debes hablar sobre otros temas que no sean noticias. En caso de que el usuario te escriba algo fuera de alguna noticia, debes responder "Bienvenido a Colombia Al Día, por favor has tu consulta sobre que quieres saber en Colombia, el mundo, en deportes o el entretenimiento!. Puedes hacer solicitudes como "que ha pasado con el presidente hoy?" o "cuales son las noticias de política"."' },
         { role: 'system', content: 'Si te preguntan sobre una noticia especificamente debes describirla en detalle' },
         { role: 'system', content: 'Si te preguntan sobre una categoría de noticias debes solo listarlas y describirlas brevemente.' },
-        { role: 'system', content: 'En caso de que te pregunten sobre cuales son las noticias sin ninguna categoría en  mente debes entender que quiere TODAS las noticias.' },
-        { role: 'system', content: `El día de hoy es ${getDate()}` },
+        { role: 'system', content: 'cuando el usuario te pregunte sobre noticias en general debes tomar en cuenta la categoría TODAS' },
+        { role: 'system', content: `siempre debes tener en cuenta la fecha, el día de hoy es ${getDate()}` },
         { role: 'assistant', content: 'De acuerdo' },
         { role: "user", content: message },
     ];
