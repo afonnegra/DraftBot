@@ -108,7 +108,7 @@ async function runConversation(phone: string, message: string) {
         }
         console.log(messages);
         const secondResponse = await openai.chat.completions.create({
-            model: "gpt-4-32k",
+            model: "gpt-3.5-turbo-16k",
             messages: messages,
         }); // get a new response from the model where it can see the function response
         const response = secondResponse.choices;
