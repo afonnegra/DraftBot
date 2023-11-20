@@ -205,9 +205,9 @@ export default defineEventHandler(async (event) => {
             if(msgType == 'text') {
                 message = body.entry[0].changes[0].value.messages[0].text.body;
                 console.log(message);
-                runConversation(phone, message)
+                await runConversation(phone, message)
             } else {
-                sendWhatsAppMessage(parseInt(phone),'Lo Lamento solo recibo texto');
+                await sendWhatsAppMessage(parseInt(phone),'Lo Lamento solo recibo texto');
             }   
         }
 
