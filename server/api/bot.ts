@@ -183,6 +183,7 @@ async function sendWhatsAppMessage(recipient:number, message:any) {
             throw new Error(`Error: ${response.status}`);
         }
 
+        
         const data = await response.json();
         console.log('Message sent successfully:', data);
     } catch (error) {
