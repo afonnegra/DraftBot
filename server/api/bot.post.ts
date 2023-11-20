@@ -202,7 +202,7 @@ export default defineEventHandler(async (event) => {
     console.log(body);
     try {
         if (body.entry.length > 0) {
-            const phone = body.entry[0].changes[0].value.messages.from;
+            const phone = body.entry[0].changes[0].value.messages[0].from;
             const msgType = body.entry[0].changes[0].value.messages[0].type;
             let message;
             if (msgType == 'text') {
