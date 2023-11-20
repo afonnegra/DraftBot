@@ -15,7 +15,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-async function runConversation() {
+async function runConversation(phone:string, message:string) {
     const messages:Array<any> = [
         { role: 'system', content: 'Tu eres un asistente que listará y describirá sobre noticias de colombia y el mundo' },
         { role: 'system', content: 'No debes hablar sobre otros temas que no sean noticias. En caso de que el usuario te escriba algo fuera de alguna noticia, debes responder "Bienvenido a Colombia Al Día, por favor has tu consulta sobre que quieres saber en Colombia, el mundo, en deportes o el entretenimiento!. Puedes hacer solicitudes como "que ha pasado con el presidente hoy?" o "cuales son las noticias de política"."' },
@@ -23,7 +23,7 @@ async function runConversation() {
         { role: 'system', content: 'Si te preguntan sobre una categoría de noticias debes solo listarlas y describirlas brevemente.' },
         { role: 'system', content: `El día de hoy es ${getDate()}` },
         { role: 'assistant', content: 'De acuerdo' },
-        { role: "user", content: "quiero saber que paso con petro" },
+        { role: "user", content: message },
     ];
 
     const tools:Array<any> = [
@@ -112,7 +112,7 @@ async function runConversation() {
             messages: messages,
         }); // get a new response from the model where it can see the function response
         const response = secondResponse.choices;
-        sendWhatsAppMessage(573192391118,response[0].message.content);
+        sendWhatsAppMessage(parseInt(phone),response[0].message.content);
     }
 
 }
@@ -193,9 +193,23 @@ async function sendWhatsAppMessage(recipient:number, message:any) {
 
 
 export default defineEventHandler(async (event) => {
-    const body = await readBody(event);
+    const body:any = await readBody(event);
     console.log(body);
-    return {
-        "hello":"hello"
-    }
+    try {
+        if(body.entry.length>0) {
+            const phone = body.entry[0].changes[0].value.messages.from;
+            const msgType = body.entry[0].changes[0].value.messages[0].type;
+            let message;
+            if(msgType == 'text') {
+                message = body.entry[0].changes[0].value.messages[0].text.body;
+                runConversation(phone, message)
+            } else {
+                sendWhatsAppMessage(parseInt(phone),'Lo Lamento solo recibo texto');
+            }   
+        }
+
+    } catch (e:any) {
+        console.log(e);
+    };
+    return
 });
