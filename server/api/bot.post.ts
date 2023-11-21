@@ -144,7 +144,7 @@ async function getSpecificNews(data: string, date: string) {
     console.log(data, date)
     let list;
     if (data.indexOf(',') > -1) {
-        list = data.split(",");
+        list = data.toLocaleLowerCase().split(",");
     } else {
         list = [data]
     }
