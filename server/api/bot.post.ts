@@ -160,7 +160,9 @@ async function getSpecificNews(data: string, date: string) {
 
 function getDate() {
     const d = new Date();
-    return `${d.getMonth() + 1}-${d.getDate()}-${d.getFullYear()} en formato MM-DD-AAAA`
+    const daS = d.toLocaleDateString("en-US", { timeZone: "America/New_York" });
+    const d2 = new Date(daS);
+    return `${d2.getMonth() + 1}-${d2.getDate()}-${d2.getFullYear()} en formato MM-DD-AAAA`
 }
 
 
