@@ -165,7 +165,6 @@ function getDate() {
     return `${d2.getMonth() + 1}-${d2.getDate()}-${d2.getFullYear()} en formato MM-DD-AAAA`
 }
 
-
 async function sendWhatsAppMessage(recipient: number, message: any) {
     console.log(recipient)
     console.log(message)
