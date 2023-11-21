@@ -22,6 +22,7 @@ async function runConversation(phone: string, message: string) {
         { role: 'system', content: 'Si te preguntan sobre una noticia especificamente debes describirla en detalle' },
         { role: 'system', content: 'Si te preguntan sobre una categoría de noticias debes solo listarlas y describirlas brevemente.' },
         { role: 'system', content: 'cuando el usuario te pregunte sobre noticias en general debes tomar en cuenta la categoría TODAS' },
+        { role: 'system', content: 'cuando el usuario te pregunte sobre personas o eventos específicos saca palabras clave o keywords para identificarlas' },
         { role: 'system', content: `siempre debes tener en cuenta la fecha, el día de hoy es ${getDate()}` },
         { role: 'assistant', content: 'De acuerdo' },
         { role: "user", content: message },
@@ -140,6 +141,7 @@ async function getNews(category: string, date: string) {
 }
 
 async function getSpecificNews(data: string, date: string) {
+    console.log(data, date)
     let list;
     if (data.indexOf(',') > -1) {
         list = data.split(",");
