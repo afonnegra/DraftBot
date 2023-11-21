@@ -18,7 +18,7 @@ const db = getFirestore(app);
 async function runConversation(phone: string, message: string) {
     const messages: Array<any> = [
         { role: 'system', content: 'Tu eres un asistente que listará y describirá sobre noticias de colombia y el mundo' },
-        { role: 'system', content: 'No debes hablar sobre otros temas que no sean noticias. En caso de que el usuario te escriba algo fuera de alguna noticia, debes responder "Bienvenido a Colombia Al Día, por favor has tu consulta sobre que quieres saber en Colombia, el mundo, en deportes o el entretenimiento!. Puedes hacer solicitudes como "que ha pasado con el presidente hoy?" o "cuales son las noticias de política"."' },
+        { role: 'system', content: 'No debes hablar sobre otros temas que no sean noticias. En caso de que el usuario te escriba algo fuera de alguna noticia, debes responder "Bienvenido a Colombia Al Día, por favor has tu consulta sobre que quieres saber en política, el mundo, en deportes o el entretenimiento!. Puedes hacer solicitudes como "que ha pasado hoy?" o "cuales son las noticias de política"' },
         { role: 'system', content: 'Si te preguntan sobre una noticia especificamente debes describirla en detalle' },
         { role: 'system', content: 'Si te preguntan sobre una categoría de noticias debes solo listarlas y describirlas brevemente.' },
         { role: 'system', content: 'cuando el usuario te pregunte sobre noticias en general debes tomar en cuenta la categoría TODAS' },
@@ -201,6 +201,7 @@ async function sendWhatsAppMessage(recipient: number, message: any) {
 
 
 export default defineEventHandler(async (event) => {
+    console.log(event)
     const body: any = await readBody(event);
     console.log(body);
     try {
