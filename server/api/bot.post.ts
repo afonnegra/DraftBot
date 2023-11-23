@@ -119,7 +119,6 @@ async function runConversation(phone: string, message: string) {
         await sendWhatsAppMessage(parseInt(phone), responseMessage.content);
     }
 
-
 }
 
 async function getNews(category: string, date: string) {
